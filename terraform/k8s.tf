@@ -14,18 +14,18 @@ locals {
 
   vm = {
     k8s_control_plane = {
-      machine_type = "e2-medium"
-      image        = "ubuntu-os-cloud/ubuntu-2204-lts"
-      ip_address   = [for i in range(3) : "10.0.0.1${i + 1}"]
+      machine_type = "t2a-standard-1"
+      image        = "debian-cloud/debian-12-arm64"
+      ip_address   = [for i in range(1) : "10.0.0.1${i + 1}"]
     }
     k8s_data_plane = {
-      machine_type = "e2-medium"
-      image        = "ubuntu-os-cloud/ubuntu-2204-lts"
-      ip_address   = [for i in range(3) : "10.1.0.1${i + 1}"]
+      machine_type = "t2a-standard-1"
+      image        = "debian-cloud/debian-12-arm64"
+      ip_address   = [for i in range(2) : "10.1.0.1${i + 1}"]
     }
     bastion = {
-      machine_type = "e2-small"
-      image        = "ubuntu-os-cloud/ubuntu-2204-lts"
+      machine_type = "t2a-standard-1"
+      image        = "debian-cloud/debian-12-arm64"
       ip_address   = "10.4.0.11"
     }
   }
@@ -207,5 +207,6 @@ resource "google_compute_instance" "bastion" {
   metadata = {
     enable-oslogin = "true"
   }
+  metadata_startup_script = file("${path.module}/scripts/setup.bastion.sh")
 }
 #===============================================================================

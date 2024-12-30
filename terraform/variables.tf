@@ -7,9 +7,9 @@ variable "project" {
 }
 
 variable "region" {
-  default = "asia-northeast1"
+  default = "asia-southeast1"
 }
 
 variable "zone" {
-  default = "asia-northeast1-a"
+  default = "asia-southeast1-b"
 }
